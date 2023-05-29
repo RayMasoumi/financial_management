@@ -1,4 +1,5 @@
 import 'package:financial_management/screens/home_screen.dart';
+import 'package:financial_management/screens/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
@@ -27,9 +28,7 @@ class _MainScreenState extends State<MainScreen> {
           if (index == 0) {
             body = const HomeScreen();
           } else {
-            body = const Center(
-              child: Text('info screen'),
-            );
+            body = const InfoScreen();
           }
           setState(() {
             currentIndex = index;

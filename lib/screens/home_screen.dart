@@ -20,11 +20,15 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: const AddFAB(),
         body: SizedBox(
           width: double.infinity,
-          child: Column(
-            children: [
-              SearchBarWidget(searchController: searchController),
-              const EmptyWidget()
-            ],
+          child: SizedBox(
+            child: Column(
+              children: [
+                SearchBarWidget(searchController: searchController),
+                const Expanded(
+                  child: EmptyWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

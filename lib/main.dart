@@ -13,6 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'koodak',
+        textTheme: Theme.of(context).textTheme.apply(
+              fontSizeFactor: 1.2,
+              fontSizeDelta: 5.0,
+              fontFamily: 'koodak',
+            ),
       ),
       debugShowCheckedModeBanner: false,
       title: 'اپلیکیشن مدیریت مالی',
