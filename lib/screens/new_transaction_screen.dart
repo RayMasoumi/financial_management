@@ -1,3 +1,4 @@
+import 'package:financial_management/constants.dart';
 import 'package:flutter/material.dart';
 
 class NewTransactionScreen extends StatefulWidget {
@@ -19,17 +20,21 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
             padding: const EdgeInsets.all(25.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: const [
-                Text('تراکنش جدید'),
-                SizedBox(
+              children: [
+                const Text('تراکنش جدید'),
+                const SizedBox(
                   height: 20.0,
                 ),
-                MyTextFieldWidget(hintText: 'توضیحات'),
-                MyTextFieldWidget(
+                const MyTextFieldWidget(hintText: 'توضیحات'),
+                const MyTextFieldWidget(
                   hintText: 'مبلغ',
                   keyBoardType: TextInputType.number,
                 ),
-                DateAndType()
+                const DateAndType(),
+                StretchedButton(
+                  text: 'مبلغ',
+                  onPressed: () {},
+                ),
               ],
             ),
           ),
@@ -39,7 +44,33 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
   }
 }
 
-//radio button widget:
+//!stretched button widget:
+class StretchedButton extends StatelessWidget {
+  final String text;
+  final void Function() onPressed;
+
+  const StretchedButton(
+      {required this.text, required this.onPressed, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 45,
+      child: ElevatedButton(
+        style: TextButton.styleFrom(
+          backgroundColor: kPurple,
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+        ),
+      ),
+    );
+  }
+}
+
+//!radio button widget:
 class RadioButton extends StatelessWidget {
   final int value;
 
@@ -93,7 +124,7 @@ class DateAndType extends StatelessWidget {
               value: 1,
               groupValue: 1000,
               onChanged: (value) {}),
-          TextButton(
+          OutlinedButton(
             onPressed: () {},
             child: const Text(
               'تاریخ',
