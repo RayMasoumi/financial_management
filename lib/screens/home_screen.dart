@@ -1,3 +1,4 @@
+import 'package:financial_management/screens/new_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_management/constants.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
@@ -45,7 +46,14 @@ class AddFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const NewTransactionScreen(),
+          ),
+        );
+      },
       backgroundColor: kPurple,
       child: const Icon(Icons.add),
     );
