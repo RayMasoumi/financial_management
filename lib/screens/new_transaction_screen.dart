@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:financial_management/models/money.dart';
 import 'package:financial_management/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../widgets.dart';
 
 class NewTransactionScreen extends StatefulWidget {

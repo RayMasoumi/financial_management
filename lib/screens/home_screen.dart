@@ -60,6 +60,27 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: HomeScreen.moneys.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
+                              //edit:
+                              onTap: () {
+                                //fill fields with data:
+                                //title:
+                                NewTransactionScreen.descriptionController
+                                    .text = HomeScreen.moneys[index].title;
+                                //price:
+                                NewTransactionScreen.priceController.text =
+                                    HomeScreen.moneys[index].price;
+                                //radio button:
+                                NewTransactionScreen.groupId =
+                                    HomeScreen.moneys[index].isReceived ? 1 : 2;
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const NewTransactionScreen(),
+                                  ),
+                                );
+                              },
                               //delete:
                               onLongPress: () {
                                 setState(() {
