@@ -1,8 +1,8 @@
 import 'package:financial_management/screens/new_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_management/constants.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
 import 'package:financial_management/models/money.dart';
+import 'package:financial_management/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   static List<Money> moneys = [
@@ -46,26 +46,68 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        floatingActionButton: const AddFAB(),
+        floatingActionButton: FABWidget(),
         body: SizedBox(
           width: double.infinity,
           child: SizedBox(
             child: Column(
               children: [
                 SearchBarWidget(searchController: searchController),
-                // const Expanded(
-                //   child:
-                // EmptyWidget(),
-                // ),
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: HomeScreen.moneys.length,
-                      itemBuilder: (context, index) {
-                        print(HomeScreen.moneys[index].isReceived);
-                        return ExpenseTileWidget(
-                          index: index,
-                        );
-                      }),
+                  child: HomeScreen.moneys.isEmpty
+                      ? const EmptyWidget()
+                      : ListView.builder(
+                          itemCount: HomeScreen.moneys.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              //delete:
+                              onLongPress: () {
+                                setState(() {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(
+                                        'آیا از حذف این آیتم مطمئن هستید؟',
+                                        style: TextStyle(fontSize: 21.0),
+                                      ),
+                                      actionsAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            'خیر',
+                                            style: TextStyle(
+                                                color: Colors.black87),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              HomeScreen.moneys.removeAt(
+                                                  (HomeScreen.moneys.length -
+                                                          1) -
+                                                      index); /*used this instead of index to show the listView in reverse*/
+                                            });
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            'بله',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                              },
+                              child: ExpenseTileWidget(
+                                index: (HomeScreen.moneys.length - 1) - index,
+                              ),
+                            );
+                          }),
                 ),
               ],
             ),
@@ -74,176 +116,25 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-//tile list widget:
-class ExpenseTileWidget extends StatelessWidget {
-  final int index;
-
-  const ExpenseTileWidget({super.key, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 20.0, right: 20.0, top: 8.0, bottom: 8.0),
-      child: Row(
-        children: [
-          Container(
-            width: 60.0,
-            height: 60.0,
-            decoration: BoxDecoration(
-              color: HomeScreen.moneys[index].isReceived ? kGreen : kRed,
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Icon(
-              HomeScreen.moneys[index].isReceived ? Icons.add : Icons.remove,
-              size: 30,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Text(
-              HomeScreen.moneys[index].title,
-              style: const TextStyle(fontSize: 18.0),
-            ),
-          ),
-          const Spacer(),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 9.0),
-                child: Row(
-                  children: [
-                    Text(
-                      'تومان  ',
-                      style: TextStyle(
-                          color: HomeScreen.moneys[index].isReceived
-                              ? kGreen
-                              : kRed),
-                    ),
-                    Text(
-                      HomeScreen.moneys[index].price,
-                      style: TextStyle(
-                          color: HomeScreen.moneys[index].isReceived
-                              ? kGreen
-                              : kRed),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(HomeScreen.moneys[index].date),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
 
 //! floating action add button
-class AddFAB extends StatelessWidget {
-  const AddFAB({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget FABWidget() {
     return FloatingActionButton(
       onPressed: () {
+        NewTransactionScreen.descriptionController.text = '';
+        NewTransactionScreen.priceController.text = '';
+        NewTransactionScreen.groupId = 0;
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const NewTransactionScreen(),
           ),
-        );
+        ).then((value) {
+          setState(() {});
+        });
       },
       backgroundColor: kPurple,
       child: const Icon(Icons.add),
-    );
-  }
-}
-
-//! searchbar widget:
-class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({
-    super.key,
-    required this.searchController,
-  });
-
-  final TextEditingController searchController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-          left: 5.0, right: 15.0, top: 15.0, bottom: 25.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: SearchBarAnimation(
-              buttonBorderColour: Colors.black26,
-              buttonShadowColour: Colors.black26,
-              hintText: '... جستجو کنید',
-              textEditingController: searchController,
-              isOriginalAnimation: false,
-              trailingWidget: const Icon(
-                Icons.search,
-                size: 20,
-                color: Colors.black,
-              ),
-              secondaryButtonWidget: const Icon(
-                Icons.close,
-                size: 20,
-                color: Colors.black,
-              ),
-              buttonWidget: const Icon(
-                Icons.search,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 10.0,
-          ),
-          const Text(
-            'تراکنش ها',
-            style: TextStyle(fontSize: 20.0, fontFamily: 'koodak'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-//! empty widget:
-class EmptyWidget extends StatelessWidget {
-  const EmptyWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Spacer(),
-        Image.asset(
-          'assets/images/empty.jpg',
-          height: 280,
-          width: 280,
-        ),
-        const Text(
-          '! تراکنشی موجود نیست ',
-          style: TextStyle(
-            fontSize: 20.0,
-          ),
-        ),
-        const Spacer(),
-      ],
     );
   }
 }
