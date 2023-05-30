@@ -2,9 +2,37 @@ import 'package:financial_management/screens/new_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_management/constants.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
+import 'package:financial_management/models/money.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  static List<Money> moneys = [
+    Money(
+        id: 0,
+        title: 'درس',
+        price: '500000',
+        date: '1401/2/8',
+        isReceived: false),
+    Money(
+        id: 1,
+        title: 'آرایشگاه',
+        price: '450000',
+        date: '1401/2/8',
+        isReceived: true),
+    Money(
+        id: 2,
+        title: 'اسنپ',
+        price: '760000',
+        date: '1401/2/8',
+        isReceived: false),
+    Money(
+        id: 3,
+        title: 'بنزین',
+        price: '1570000',
+        date: '1401/2/8',
+        isReceived: true),
+  ];
+
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,13 +53,92 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 SearchBarWidget(searchController: searchController),
-                const Expanded(
-                  child: EmptyWidget(),
+                // const Expanded(
+                //   child:
+                // EmptyWidget(),
+                // ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: HomeScreen.moneys.length,
+                      itemBuilder: (context, index) {
+                        print(HomeScreen.moneys[index].isReceived);
+                        return ExpenseTileWidget(
+                          index: index,
+                        );
+                      }),
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+//tile list widget:
+class ExpenseTileWidget extends StatelessWidget {
+  final int index;
+
+  const ExpenseTileWidget({super.key, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:
+          const EdgeInsets.only(left: 20.0, right: 20.0, top: 8.0, bottom: 8.0),
+      child: Row(
+        children: [
+          Container(
+            width: 60.0,
+            height: 60.0,
+            decoration: BoxDecoration(
+              color: HomeScreen.moneys[index].isReceived ? kGreen : kRed,
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: Icon(
+              HomeScreen.moneys[index].isReceived ? Icons.add : Icons.remove,
+              size: 30,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text(
+              HomeScreen.moneys[index].title,
+              style: const TextStyle(fontSize: 18.0),
+            ),
+          ),
+          const Spacer(),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 9.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'تومان  ',
+                      style: TextStyle(
+                          color: HomeScreen.moneys[index].isReceived
+                              ? kGreen
+                              : kRed),
+                    ),
+                    Text(
+                      HomeScreen.moneys[index].price,
+                      style: TextStyle(
+                          color: HomeScreen.moneys[index].isReceived
+                              ? kGreen
+                              : kRed),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(HomeScreen.moneys[index].date),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
@@ -72,7 +179,8 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 5.0, right: 15.0, top: 15.0),
+      padding: const EdgeInsets.only(
+          left: 5.0, right: 15.0, top: 15.0, bottom: 25.0),
       child: Row(
         children: [
           Expanded(
