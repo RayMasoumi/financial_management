@@ -5,32 +5,7 @@ import 'package:financial_management/models/money.dart';
 import 'package:financial_management/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
-  static List<Money> moneys = [
-    Money(
-        id: 0,
-        title: 'درس',
-        price: '500000',
-        date: '1401/2/8',
-        isReceived: false),
-    Money(
-        id: 1,
-        title: 'آرایشگاه',
-        price: '450000',
-        date: '1401/2/8',
-        isReceived: true),
-    Money(
-        id: 2,
-        title: 'اسنپ',
-        price: '760000',
-        date: '1401/2/8',
-        isReceived: false),
-    Money(
-        id: 3,
-        title: 'بنزین',
-        price: '1570000',
-        date: '1401/2/8',
-        isReceived: true),
-  ];
+  static List<Money> moneys = [];
 
   const HomeScreen({super.key});
 

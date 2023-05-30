@@ -1,8 +1,18 @@
+import 'package:hive/hive.dart';
+
+part 'money.g.dart';
+
+@HiveType(typeId: 0)
 class Money {
+  @HiveField(0)
   int id;
+  @HiveField(1)
   String title;
+  @HiveField(2)
   String price;
+  @HiveField(3)
   String date;
+  @HiveField(4)
   bool isReceived; //poole daryafti bude ya pardakhti
 
   Money(
