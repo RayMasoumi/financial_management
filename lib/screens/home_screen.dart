@@ -62,24 +62,40 @@ class _HomeScreenState extends State<HomeScreen> {
                             return GestureDetector(
                               //edit:
                               onTap: () {
+                                NewTransactionScreen.isEditing = true;
                                 //fill fields with data:
                                 //title:
-                                NewTransactionScreen.descriptionController
-                                    .text = HomeScreen.moneys[index].title;
+                                NewTransactionScreen
+                                        .descriptionController.text =
+                                    HomeScreen
+                                        .moneys[(HomeScreen.moneys.length - 1) -
+                                            index]
+                                        .title;
                                 //price:
                                 NewTransactionScreen.priceController.text =
-                                    HomeScreen.moneys[index].price;
+                                    HomeScreen
+                                        .moneys[(HomeScreen.moneys.length - 1) -
+                                            index]
+                                        .price;
                                 //radio button:
-                                NewTransactionScreen.groupId =
-                                    HomeScreen.moneys[index].isReceived ? 1 : 2;
-
+                                NewTransactionScreen.groupId = HomeScreen
+                                        .moneys[(HomeScreen.moneys.length - 1) -
+                                            index]
+                                        .isReceived
+                                    ? 2
+                                    : 1;
+                                //index:
+                                NewTransactionScreen.index =
+                                    (HomeScreen.moneys.length - 1) - index;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         const NewTransactionScreen(),
                                   ),
-                                );
+                                ).then((value) {
+                                  setState(() {});
+                                });
                               },
                               //delete:
                               onLongPress: () {

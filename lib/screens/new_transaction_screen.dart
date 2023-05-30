@@ -6,9 +6,11 @@ import '../widgets.dart';
 
 class NewTransactionScreen extends StatefulWidget {
   const NewTransactionScreen({Key? key}) : super(key: key);
-  static int groupId = 0;
+  static int groupId = 5;
   static TextEditingController descriptionController = TextEditingController();
   static TextEditingController priceController = TextEditingController();
+  static bool isEditing = false;
+  static int index = 0;
 
   @override
   State<NewTransactionScreen> createState() => _NewTransactionScreenState();
@@ -27,7 +29,9 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text('تراکنش جدید'),
+                Text(NewTransactionScreen.isEditing
+                    ? 'ویرایش تراکنش'
+                    : 'تراکنش جدید'),
                 const SizedBox(
                   height: 20.0,
                 ),
@@ -41,18 +45,23 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                 ),
                 const DateAndType(),
                 StretchedButton(
-                  text: 'اضافه کردن',
+                  text: NewTransactionScreen.isEditing
+                      ? 'ثبت ویرایش'
+                      : 'اضافه کردن',
                   onPressed: () {
-                    HomeScreen.moneys.add(
-                      Money(
-                          id: Random().nextInt(999999),
-                          title:
-                              NewTransactionScreen.descriptionController.text,
-                          price: NewTransactionScreen.priceController.text,
-                          date: '1401/5/8',
-                          isReceived:
-                              NewTransactionScreen.groupId == 1 ? false : true),
-                    );
+                    Money sample = Money(
+                        id: Random().nextInt(999999),
+                        title: NewTransactionScreen.descriptionController.text,
+                        price: NewTransactionScreen.priceController.text,
+                        date: '1401/5/8',
+                        isReceived:
+                            NewTransactionScreen.groupId == 1 ? false : true);
+                    if (NewTransactionScreen.isEditing) {
+                      HomeScreen.moneys[NewTransactionScreen.index] = sample;
+                    } else {
+                      HomeScreen.moneys.add(sample);
+                    }
+
                     Navigator.pop(context);
                   },
                 ),
