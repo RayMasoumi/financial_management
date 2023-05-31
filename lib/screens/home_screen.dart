@@ -6,6 +6,7 @@ import 'package:financial_management/models/money.dart';
 import 'package:financial_management/utilities/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
+import 'package:financial_management/utilities/extensions.dart';
 
 class HomeScreen extends StatefulWidget {
   static List<Money> moneys = [];
@@ -82,9 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: const Text(
+                                      title: Text(
                                         'آیا از حذف این آیتم مطمئن هستید؟',
-                                        style: TextStyle(fontSize: 21.0),
+                                        style: TextStyle(
+                                            fontSize: ScreenSize(context)
+                                                    .screenWidth *
+                                                0.030),
                                       ),
                                       actionsAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -93,10 +97,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          child: const Text(
+                                          child: Text(
                                             'خیر',
                                             style: TextStyle(
-                                                color: Colors.black87),
+                                                color: Colors.black87,
+                                                fontSize: ScreenSize(context)
+                                                        .screenWidth *
+                                                    0.0365),
                                           ),
                                         ),
                                         TextButton(
@@ -116,9 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             });
                                             Navigator.pop(context);
                                           },
-                                          child: const Text(
+                                          child: Text(
                                             'بله',
-                                            style: TextStyle(color: Colors.red),
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: ScreenSize(context)
+                                                        .screenWidth *
+                                                    0.0365),
                                           ),
                                         ),
                                       ],

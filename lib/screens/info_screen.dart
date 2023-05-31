@@ -1,6 +1,6 @@
 import 'package:financial_management/utilities/chart_widget.dart';
 import 'package:flutter/material.dart';
-
+import 'package:financial_management/utilities/extensions.dart';
 import '../utilities/calculate.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -21,9 +21,12 @@ class _InfoScreenState extends State<InfoScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 30.0, right: 20.0, bottom: 10.0),
-                child: Text('مدیریت تراکنش ها به تومان'),
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 30.0, right: 20.0, bottom: 10.0),
+                child: Text('مدیریت تراکنش ها به تومان',
+                    style: TextStyle(
+                        fontSize: ScreenSize(context).screenWidth * 0.039)),
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -94,8 +97,14 @@ class ExpenseBoxWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: Row(
         children: [
-          Text(cost),
-          Text(text),
+          Text(
+            cost,
+            style: TextStyle(fontSize: ScreenSize(context).screenWidth * 0.035),
+          ),
+          Text(
+            text,
+            style: TextStyle(fontSize: ScreenSize(context).screenWidth * 0.035),
+          ),
         ],
       ),
     );
