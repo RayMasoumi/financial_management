@@ -1,3 +1,4 @@
+import 'package:financial_management/utilities/chart_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../utilities/calculate.dart';
@@ -63,6 +64,14 @@ class _InfoScreenState extends State<InfoScreen> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                height: 200.0,
+                child: const BarChartWidget(),
+              )
             ],
           ),
         ),
