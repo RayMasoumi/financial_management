@@ -1,4 +1,3 @@
-import 'package:searchbar_animation/searchbar_animation.dart';
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 import 'constants.dart';
@@ -65,59 +64,6 @@ class ExpenseTileWidget extends StatelessWidget {
                 child: Text(HomeScreen.moneys[index].date),
               ),
             ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-//! searchbar widget:
-class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({
-    super.key,
-    required this.searchController,
-  });
-
-  final TextEditingController searchController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 5.0, right: 15.0, top: 15.0, bottom: 8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: SearchBarAnimation(
-              buttonBorderColour: Colors.black26,
-              buttonShadowColour: Colors.black26,
-              hintText: '... جستجو کنید',
-              textEditingController: searchController,
-              isOriginalAnimation: false,
-              trailingWidget: const Icon(
-                Icons.search,
-                size: 20,
-                color: Colors.black,
-              ),
-              secondaryButtonWidget: const Icon(
-                Icons.close,
-                size: 20,
-                color: Colors.black,
-              ),
-              buttonWidget: const Icon(
-                Icons.search,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 10.0,
-          ),
-          const Text(
-            'تراکنش ها',
-            style: TextStyle(fontSize: 20.0, fontFamily: 'koodak'),
           ),
         ],
       ),

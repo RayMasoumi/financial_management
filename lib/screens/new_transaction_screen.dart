@@ -1,12 +1,12 @@
 import 'dart:math';
 import 'package:financial_management/models/money.dart';
-import 'package:financial_management/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import '../widgets.dart';
 
 class NewTransactionScreen extends StatefulWidget {
   const NewTransactionScreen({Key? key}) : super(key: key);
-  static int groupId = 5;
+  static int groupId = 0;
   static TextEditingController descriptionController = TextEditingController();
   static TextEditingController priceController = TextEditingController();
   static bool isEditing = false;
@@ -17,6 +17,7 @@ class NewTransactionScreen extends StatefulWidget {
 }
 
 class _NewTransactionScreenState extends State<NewTransactionScreen> {
+  Box<Money> hiveBox = Hive.box('moneyBox');
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -57,9 +58,11 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                         isReceived:
                             NewTransactionScreen.groupId == 1 ? false : true);
                     if (NewTransactionScreen.isEditing) {
-                      HomeScreen.moneys[NewTransactionScreen.index] = sample;
+                      // HomeScreen.moneys[NewTransactionScreen.index] = sample;
+                      hiveBox.putAt(NewTransactionScreen.index, sample);
                     } else {
-                      HomeScreen.moneys.add(sample);
+                      // HomeScreen.moneys.add(sample);
+                      hiveBox.add(sample);
                     }
 
                     Navigator.pop(context);

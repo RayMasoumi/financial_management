@@ -1,8 +1,11 @@
+import 'package:financial_management/main.dart';
 import 'package:financial_management/screens/new_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_management/constants.dart';
 import 'package:financial_management/models/money.dart';
 import 'package:financial_management/widgets.dart';
+import 'package:hive/hive.dart';
+import 'package:searchbar_animation/searchbar_animation.dart';
 
 class HomeScreen extends StatefulWidget {
   static List<Money> moneys = [];
@@ -16,18 +19,26 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController searchController = TextEditingController();
 
+  Box<Money> hiveBox = Hive.box('moneyBox');
+
+  @override
+  void initState() {
+    MyApp.getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        floatingActionButton: FABWidget(),
+        floatingActionButton: fabWidget(),
         body: SizedBox(
           width: double.infinity,
           child: SizedBox(
             child: Column(
               children: [
-                SearchBarWidget(searchController: searchController),
+                searchbarWidget(),
                 Expanded(
                   child: HomeScreen.moneys.isEmpty
                       ? const EmptyWidget()
@@ -69,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         const NewTransactionScreen(),
                                   ),
                                 ).then((value) {
+                                  MyApp.getData();
                                   setState(() {});
                                 });
                               },
@@ -98,10 +110,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                         TextButton(
                                           onPressed: () {
                                             setState(() {
-                                              HomeScreen.moneys.removeAt(
-                                                  (HomeScreen.moneys.length -
-                                                          1) -
-                                                      index); /*used this instead of index to show the listView in reverse*/
+                                              // HomeScreen.moneys.removeAt(
+                                              //     (HomeScreen.moneys.length -
+                                              //             1) -
+                                              //         index); /*used this instead of index to show the listView in reverse*/
+                                              int rIndex =
+                                                  (hiveBox.length - 1) - index;
+                                              hiveBox.deleteAt(rIndex);
+                                              MyApp.getData();
                                             });
                                             Navigator.pop(context);
                                           },
@@ -130,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 //! floating action add button
-  Widget FABWidget() {
+  Widget fabWidget() {
     return FloatingActionButton(
       onPressed: () {
         NewTransactionScreen.descriptionController.text = '';
@@ -142,11 +158,76 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context) => const NewTransactionScreen(),
           ),
         ).then((value) {
+          MyApp.getData();
           setState(() {});
         });
       },
       backgroundColor: kPurple,
       child: const Icon(Icons.add),
+    );
+  }
+
+//! searchbar widget:
+  Widget searchbarWidget() {
+    return Padding(
+      padding:
+          const EdgeInsets.only(left: 5.0, right: 15.0, top: 15.0, bottom: 8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: SearchBarAnimation(
+              buttonBorderColour: Colors.black26,
+              buttonShadowColour: Colors.black26,
+              hintText: '... جستجو کنید',
+              textEditingController: searchController,
+              isOriginalAnimation: false,
+              //search function:
+              onFieldSubmitted: (String text) {
+                List<Money> searchResult = hiveBox.values
+                    .where(
+                      (value) =>
+                          value.title.contains(text) ||
+                          value.date.contains(text),
+                    )
+                    .toList();
+                HomeScreen.moneys.clear();
+                setState(() {
+                  for (var value in searchResult) {
+                    HomeScreen.moneys.add(value);
+                  }
+                });
+              },
+              onCollapseComplete: () {
+                MyApp.getData();
+                searchController.text = '';
+                setState(() {});
+              },
+              trailingWidget: const Icon(
+                Icons.search,
+                size: 20,
+                color: Colors.black,
+              ),
+              secondaryButtonWidget: const Icon(
+                Icons.close,
+                size: 20,
+                color: Colors.black,
+              ),
+              buttonWidget: const Icon(
+                Icons.search,
+                size: 20,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 10.0,
+          ),
+          const Text(
+            'تراکنش ها',
+            style: TextStyle(fontSize: 20.0, fontFamily: 'koodak'),
+          ),
+        ],
+      ),
     );
   }
 }

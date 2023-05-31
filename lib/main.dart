@@ -1,3 +1,4 @@
+import 'package:financial_management/screens/home_screen.dart';
 import 'package:financial_management/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -12,6 +13,15 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  //read data from the database(box):
+  static void getData() {
+    HomeScreen.moneys.clear();
+    Box<Money> hiveBox = Hive.box<Money>('moneyBox');
+    for (var value in hiveBox.values) {
+      HomeScreen.moneys.add(value);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
