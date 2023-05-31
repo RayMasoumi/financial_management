@@ -1,3 +1,4 @@
+import 'package:financial_management/constants.dart';
 import 'package:financial_management/utilities/chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_management/utilities/extensions.dart';
@@ -26,7 +27,8 @@ class _InfoScreenState extends State<InfoScreen> {
                     const EdgeInsets.only(top: 30.0, right: 20.0, bottom: 10.0),
                 child: Text('مدیریت تراکنش ها به تومان',
                     style: TextStyle(
-                        fontSize: ScreenSize(context).screenWidth * 0.039)),
+                        fontSize:
+                            ScreenSize(context).screenWidth * kTitleRatio)),
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -99,11 +101,13 @@ class ExpenseBoxWidget extends StatelessWidget {
         children: [
           Text(
             cost,
-            style: TextStyle(fontSize: ScreenSize(context).screenWidth * 0.035),
+            style: TextStyle(
+                fontSize: ScreenSize(context).screenWidth * kTextRatio),
           ),
           Text(
             text,
-            style: TextStyle(fontSize: ScreenSize(context).screenWidth * 0.035),
+            style: TextStyle(
+                fontSize: ScreenSize(context).screenWidth * kTextRatio),
           ),
         ],
       ),

@@ -3,6 +3,7 @@ import '../screens/home_screen.dart';
 import '../constants.dart';
 import '../screens/new_transaction_screen.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+import 'package:financial_management/utilities/extensions.dart';
 
 //!tile list widget:
 class ExpenseTileWidget extends StatelessWidget {
@@ -18,22 +19,23 @@ class ExpenseTileWidget extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 60.0,
-            height: 60.0,
+            width: ScreenSize(context).screenWidth * kColoredIconRatio,
+            height: ScreenSize(context).screenWidth * kColoredIconRatio,
             decoration: BoxDecoration(
               color: HomeScreen.moneys[index].isReceived ? kGreen : kRed,
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: Icon(
               HomeScreen.moneys[index].isReceived ? Icons.add : Icons.remove,
-              size: 30,
+              size: ScreenSize(context).screenWidth * kIconRatio,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Text(
               HomeScreen.moneys[index].title,
-              style: const TextStyle(fontSize: 18.0),
+              style: TextStyle(
+                  fontSize: ScreenSize(context).screenWidth * kTextRatio),
             ),
           ),
           const Spacer(),
@@ -46,6 +48,8 @@ class ExpenseTileWidget extends StatelessWidget {
                     Text(
                       'تومان  ',
                       style: TextStyle(
+                          fontSize:
+                              ScreenSize(context).screenWidth * kTextRatio,
                           color: HomeScreen.moneys[index].isReceived
                               ? kGreen
                               : kRed),
@@ -53,6 +57,8 @@ class ExpenseTileWidget extends StatelessWidget {
                     Text(
                       HomeScreen.moneys[index].price,
                       style: TextStyle(
+                          fontSize:
+                              ScreenSize(context).screenWidth * kTextRatio,
                           color: HomeScreen.moneys[index].isReceived
                               ? kGreen
                               : kRed),
@@ -62,7 +68,11 @@ class ExpenseTileWidget extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text(HomeScreen.moneys[index].date),
+                child: Text(
+                  HomeScreen.moneys[index].date,
+                  style: TextStyle(
+                      fontSize: ScreenSize(context).screenWidth * 0.035),
+                ),
               ),
             ],
           ),
@@ -88,10 +98,10 @@ class EmptyWidget extends StatelessWidget {
           height: 280,
           width: 280,
         ),
-        const Text(
+        Text(
           '! تراکنشی موجود نیست ',
           style: TextStyle(
-            fontSize: 20.0,
+            fontSize: ScreenSize(context).screenWidth * kTextRatio,
           ),
         ),
         const Spacer(),
@@ -152,7 +162,11 @@ class RadioButton extends StatelessWidget {
           groupValue: groupValue,
           onChanged: onChanged,
         ),
-        Text(title),
+        Text(
+          title,
+          style:
+              TextStyle(fontSize: ScreenSize(context).screenWidth * kTextRatio),
+        ),
       ],
     );
   }
@@ -176,25 +190,33 @@ class _DateAndTypeState extends State<DateAndType> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RadioButton(
-              title: 'پرداختی',
-              value: 1,
-              groupValue: NewTransactionScreen.groupId,
-              onChanged: (value) {
-                setState(() {
-                  NewTransactionScreen.groupId = value!;
-                });
-              }),
-          RadioButton(
-              title: 'دریافتی',
-              value: 2,
-              groupValue: NewTransactionScreen.groupId,
-              onChanged: (value) {
-                setState(() {
-                  NewTransactionScreen.groupId = value!;
-                });
-              }),
           Expanded(
+            flex: 2,
+            child: RadioButton(
+                title: 'پرداختی',
+                value: 1,
+                groupValue: NewTransactionScreen.groupId,
+                onChanged: (value) {
+                  setState(() {
+                    NewTransactionScreen.groupId = value!;
+                  });
+                }),
+          ),
+          Expanded(
+            flex: 2,
+            child: RadioButton(
+                title: 'دریافتی',
+                value: 2,
+                groupValue: NewTransactionScreen.groupId,
+                onChanged: (value) {
+                  setState(() {
+                    NewTransactionScreen.groupId = value!;
+                  });
+                }),
+          ),
+          const Spacer(),
+          Expanded(
+            flex: 5,
             child: OutlinedButton(
               onPressed: () async {
                 var pickedDate = await showPersianDatePicker(
@@ -225,7 +247,10 @@ class _DateAndTypeState extends State<DateAndType> {
               },
               child: Text(
                 NewTransactionScreen.date,
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: ScreenSize(context).screenWidth * kTextRatio,
+                ),
               ),
             ),
           ),
@@ -252,6 +277,11 @@ class MyTextFieldWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextField(
+        style: TextStyle(
+          color: Colors.black87,
+          fontWeight: FontWeight.bold,
+          fontSize: ScreenSize(context).screenWidth * kTextRatio,
+        ),
         controller: controller,
         cursorColor: Colors.black54,
         keyboardType: keyBoardType,

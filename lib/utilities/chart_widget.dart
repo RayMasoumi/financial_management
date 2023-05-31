@@ -48,7 +48,7 @@ class BarChartWidget extends StatelessWidget {
     const style = TextStyle(
       color: Colors.black87,
       fontWeight: FontWeight.bold,
-      fontSize: 20,
+      fontSize: 16,
     );
     String text;
     switch (value.toInt()) {

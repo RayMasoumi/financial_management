@@ -3,7 +3,9 @@ import 'package:financial_management/main.dart';
 import 'package:financial_management/models/money.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import '../constants.dart';
 import '../utilities/widgets.dart';
+import 'package:financial_management/utilities/extensions.dart';
 
 class NewTransactionScreen extends StatefulWidget {
   const NewTransactionScreen({Key? key}) : super(key: key);
@@ -32,9 +34,14 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(NewTransactionScreen.isEditing
-                    ? 'ویرایش تراکنش'
-                    : 'تراکنش جدید'),
+                Text(
+                  NewTransactionScreen.isEditing
+                      ? 'ویرایش تراکنش'
+                      : 'تراکنش جدید',
+                  style: TextStyle(
+                    fontSize: ScreenSize(context).screenWidth * kTitleRatio,
+                  ),
+                ),
                 const SizedBox(
                   height: 20.0,
                 ),

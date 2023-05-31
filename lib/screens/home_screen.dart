@@ -230,9 +230,11 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             width: 10.0,
           ),
-          const Text(
+          Text(
             'تراکنش ها',
-            style: TextStyle(fontSize: 20.0, fontFamily: 'koodak'),
+            style: TextStyle(
+                fontSize: ScreenSize(context).screenWidth * kTitleRatio,
+                fontFamily: 'koodak'),
           ),
         ],
       ),
