@@ -3,7 +3,7 @@ import 'package:financial_management/main.dart';
 import 'package:financial_management/models/money.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import '../widgets.dart';
+import '../utilities/widgets.dart';
 
 class NewTransactionScreen extends StatefulWidget {
   const NewTransactionScreen({Key? key}) : super(key: key);

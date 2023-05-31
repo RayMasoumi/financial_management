@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
-import 'constants.dart';
-import 'screens/new_transaction_screen.dart';
+import '../screens/home_screen.dart';
+import '../constants.dart';
+import '../screens/new_transaction_screen.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 //!tile list widget:
@@ -205,15 +205,16 @@ class _DateAndTypeState extends State<DateAndType> {
                 );
                 setState(() {
                   //to set 0 before 1 digit dates:
-                  // .length == 2
-                  // ? pickedDate?.day.toString()
-                  //     : '0${pickedDate?.day.toString()}'
 
                   //day
-                  String? day = pickedDate?.day.toString();
+                  String? day = pickedDate?.day.toString().length == 2
+                      ? pickedDate?.day.toString()
+                      : '0${pickedDate?.day.toString()}';
 
                   //month
-                  String? month = pickedDate?.month.toString();
+                  String? month = pickedDate?.month.toString().length == 2
+                      ? pickedDate?.month.toString()
+                      : '0${pickedDate?.month.toString()}';
 
                   //year
                   String? year = pickedDate?.year.toString();

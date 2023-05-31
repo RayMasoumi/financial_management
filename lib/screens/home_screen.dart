@@ -3,7 +3,7 @@ import 'package:financial_management/screens/new_transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_management/constants.dart';
 import 'package:financial_management/models/money.dart';
-import 'package:financial_management/widgets.dart';
+import 'package:financial_management/utilities/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 

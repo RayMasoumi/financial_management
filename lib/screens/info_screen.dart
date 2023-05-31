@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utilities/calculate.dart';
+
 class InfoScreen extends StatefulWidget {
   const InfoScreen({Key? key}) : super(key: key);
 
@@ -26,10 +28,12 @@ class _InfoScreenState extends State<InfoScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    ExpenseBoxWidget(': دریافتی امروز', '0.0 '),
-                    Spacer(),
-                    ExpenseBoxWidget(': پرداختی امروز', '0.0 '),
+                  children: [
+                    ExpenseBoxWidget(': دریافتی امروز',
+                        '${Calculate.receivedToday().toString()} '),
+                    const Spacer(),
+                    ExpenseBoxWidget(': پرداختی امروز',
+                        '${Calculate.paidToday().toString()} '),
                   ],
                 ),
               ),
@@ -37,10 +41,12 @@ class _InfoScreenState extends State<InfoScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    ExpenseBoxWidget(': دریافتی این ماه', '0.0 '),
-                    Spacer(),
-                    ExpenseBoxWidget(': پرداختی این ماه', '0.0 '),
+                  children: [
+                    ExpenseBoxWidget(': دریافتی این ماه',
+                        '${Calculate.receivedThisMonth().toString()} '),
+                    const Spacer(),
+                    ExpenseBoxWidget(': پرداختی این ماه',
+                        '${Calculate.paidThisMonth().toString()} '),
                   ],
                 ),
               ),
@@ -48,10 +54,12 @@ class _InfoScreenState extends State<InfoScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    ExpenseBoxWidget(': دریافتی امسال', '0.0 '),
-                    Spacer(),
-                    ExpenseBoxWidget(': پرداختی امسال', '0.0 '),
+                  children: [
+                    ExpenseBoxWidget(': دریافتی امسال',
+                        '${Calculate.receivedThisYear().toString()} '),
+                    const Spacer(),
+                    ExpenseBoxWidget(': پرداختی امسال',
+                        '${Calculate.paidThisYear().toString()} '),
                   ],
                 ),
               ),
