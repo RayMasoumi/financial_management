@@ -28,7 +28,7 @@ class _InfoScreenState extends State<InfoScreen> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ExpenseBoxWidget(': دریافتی امروز',
                         '${Calculate.receivedToday().toString()} '),
@@ -64,14 +64,16 @@ class _InfoScreenState extends State<InfoScreen> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50.0,
               ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                height: 200.0,
-                child: const BarChartWidget(),
-              )
+              Calculate.paidThisYear() == 0 && Calculate.receivedThisYear() == 0
+                  ? Container()
+                  : Container(
+                      padding: const EdgeInsets.all(10.0),
+                      height: 200.0,
+                      child: const BarChartWidget(),
+                    )
             ],
           ),
         ),
