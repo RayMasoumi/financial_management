@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:financial_management/main.dart';
 import 'package:financial_management/models/money.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -58,14 +59,25 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                         isReceived:
                             NewTransactionScreen.groupId == 1 ? false : true);
                     if (NewTransactionScreen.isEditing) {
+                      int index = 0;
+                      //casting the id we got into the correct index of each element:
+                      MyApp.getData(); //refreshing the List at first:
+                      for (int i = 0; i < hiveBox.values.length; i++) {
+                        if (hiveBox.values.elementAt(i).id ==
+                            NewTransactionScreen
+                                .index) //so this checks if they have the same id, and if so, they must have the same index too
+                        {
+                          index = i;
+                          Navigator.pop(context);
+                        }
+                      }
+
                       // HomeScreen.moneys[NewTransactionScreen.index] = sample;
-                      hiveBox.putAt(NewTransactionScreen.index, sample);
+                      hiveBox.putAt(index, sample);
                     } else {
                       // HomeScreen.moneys.add(sample);
                       hiveBox.add(sample);
                     }
-
-                    Navigator.pop(context);
                   },
                 ),
               ],

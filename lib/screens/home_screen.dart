@@ -51,28 +51,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 NewTransactionScreen.isEditing = true;
                                 //fill fields with data:
                                 //title:
-                                NewTransactionScreen
-                                        .descriptionController.text =
-                                    HomeScreen
-                                        .moneys[(HomeScreen.moneys.length - 1) -
-                                            index]
-                                        .title;
+                                NewTransactionScreen.descriptionController
+                                    .text = HomeScreen.moneys[index].title;
                                 //price:
                                 NewTransactionScreen.priceController.text =
-                                    HomeScreen
-                                        .moneys[(HomeScreen.moneys.length - 1) -
-                                            index]
-                                        .price;
+                                    HomeScreen.moneys[index].price;
                                 //radio button:
-                                NewTransactionScreen.groupId = HomeScreen
-                                        .moneys[(HomeScreen.moneys.length - 1) -
-                                            index]
-                                        .isReceived
-                                    ? 2
-                                    : 1;
+                                NewTransactionScreen.groupId =
+                                    HomeScreen.moneys[index].isReceived ? 2 : 1;
                                 //index:
+                                //now instead of passing the index, we pass the ID so it wouldn't be a problem to edit when the indexes change
                                 NewTransactionScreen.index =
-                                    (HomeScreen.moneys.length - 1) - index;
+                                    HomeScreen.moneys[index].id;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -114,9 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                               //     (HomeScreen.moneys.length -
                                               //             1) -
                                               //         index); /*used this instead of index to show the listView in reverse*/
-                                              int rIndex =
-                                                  (hiveBox.length - 1) - index;
-                                              hiveBox.deleteAt(rIndex);
+
+                                              //*******if you needed to reverse index***********
+                                              // int rIndex =
+                                              //     (hiveBox.length - 1) - index;
+                                              //************************************************
+                                              hiveBox.deleteAt(index);
                                               MyApp.getData();
                                             });
                                             Navigator.pop(context);
@@ -132,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 });
                               },
                               child: ExpenseTileWidget(
-                                index: (HomeScreen.moneys.length - 1) - index,
+                                index: index,
                               ),
                             );
                           }),
@@ -149,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget fabWidget() {
     return FloatingActionButton(
       onPressed: () {
+        NewTransactionScreen.isEditing = false;
         NewTransactionScreen.descriptionController.text = '';
         NewTransactionScreen.priceController.text = '';
         NewTransactionScreen.groupId = 0;
