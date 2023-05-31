@@ -121,7 +121,7 @@ class StretchedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: ScreenSize(context).screenWidth * 0.9,
       height: 45,
       child: ElevatedButton(
         style: TextButton.styleFrom(
@@ -156,11 +156,13 @@ class RadioButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Radio(
-          activeColor: kPurple,
-          value: value,
-          groupValue: groupValue,
-          onChanged: onChanged,
+        Expanded(
+          child: Radio(
+            activeColor: kPurple,
+            value: value,
+            groupValue: groupValue,
+            onChanged: onChanged,
+          ),
         ),
         Text(
           title,

@@ -53,7 +53,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                   keyBoardType: TextInputType.number,
                   controller: NewTransactionScreen.priceController,
                 ),
-                const DateAndType(),
+                DateAndType(),
                 StretchedButton(
                   text: NewTransactionScreen.isEditing
                       ? 'ثبت ویرایش'
