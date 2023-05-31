@@ -4,15 +4,15 @@ part 'money.g.dart';
 
 @HiveType(typeId: 0)
 class Money {
-  @HiveField(0)
-  int id;
   @HiveField(1)
-  String title;
+  int id;
   @HiveField(2)
-  String price;
+  String title;
   @HiveField(3)
-  String date;
+  String price;
   @HiveField(4)
+  String date;
+  @HiveField(5)
   bool isReceived; //poole daryafti bude ya pardakhti
 
   Money(
