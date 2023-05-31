@@ -12,6 +12,7 @@ class NewTransactionScreen extends StatefulWidget {
   static TextEditingController priceController = TextEditingController();
   static bool isEditing = false;
   static int index = 0;
+  static String date = 'تاریخ';
 
   @override
   State<NewTransactionScreen> createState() => _NewTransactionScreenState();

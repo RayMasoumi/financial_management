@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 import 'constants.dart';
 import 'screens/new_transaction_screen.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 //!tile list widget:
 class ExpenseTileWidget extends StatelessWidget {
@@ -172,35 +173,64 @@ class _DateAndTypeState extends State<DateAndType> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          RadioButton(
-              title: 'پرداختی',
-              value: 1,
-              groupValue: NewTransactionScreen.groupId,
-              onChanged: (value) {
-                setState(() {
-                  NewTransactionScreen.groupId = value!;
-                });
-              }),
-          RadioButton(
-              title: 'دریافتی',
-              value: 2,
-              groupValue: NewTransactionScreen.groupId,
-              onChanged: (value) {
-                setState(() {
-                  NewTransactionScreen.groupId = value!;
-                });
-              }),
-          OutlinedButton(
-            onPressed: () {},
-            child: const Text(
-              'تاریخ',
-              style: TextStyle(color: Colors.black),
+      child: Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            RadioButton(
+                title: 'پرداختی',
+                value: 1,
+                groupValue: NewTransactionScreen.groupId,
+                onChanged: (value) {
+                  setState(() {
+                    NewTransactionScreen.groupId = value!;
+                  });
+                }),
+            RadioButton(
+                title: 'دریافتی',
+                value: 2,
+                groupValue: NewTransactionScreen.groupId,
+                onChanged: (value) {
+                  setState(() {
+                    NewTransactionScreen.groupId = value!;
+                  });
+                }),
+            Expanded(
+              child: OutlinedButton(
+                onPressed: () async {
+                  var pickedDate = await showPersianDatePicker(
+                    context: context,
+                    initialDate: Jalali.now(),
+                    firstDate: Jalali(1402),
+                    lastDate: Jalali(1420),
+                  );
+                  setState(() {
+                    //to set 0 before 1 digit dates:
+                    // .length == 2
+                    // ? pickedDate?.day.toString()
+                    //     : '0${pickedDate?.day.toString()}'
+
+                    //day
+                    String? day = pickedDate?.day.toString();
+
+                    //month
+                    String? month = pickedDate?.month.toString();
+
+                    //year
+                    String? year = pickedDate?.year.toString();
+
+                    //date
+                    NewTransactionScreen.date = '$year/$month/$day';
+                  });
+                },
+                child: Text(
+                  NewTransactionScreen.date,
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
