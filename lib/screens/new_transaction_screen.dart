@@ -77,6 +77,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                     } else {
                       // HomeScreen.moneys.add(sample);
                       hiveBox.add(sample);
+                      Navigator.pop(context);
                     }
                   },
                 ),
