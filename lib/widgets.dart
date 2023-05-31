@@ -173,64 +173,62 @@ class _DateAndTypeState extends State<DateAndType> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            RadioButton(
-                title: 'پرداختی',
-                value: 1,
-                groupValue: NewTransactionScreen.groupId,
-                onChanged: (value) {
-                  setState(() {
-                    NewTransactionScreen.groupId = value!;
-                  });
-                }),
-            RadioButton(
-                title: 'دریافتی',
-                value: 2,
-                groupValue: NewTransactionScreen.groupId,
-                onChanged: (value) {
-                  setState(() {
-                    NewTransactionScreen.groupId = value!;
-                  });
-                }),
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () async {
-                  var pickedDate = await showPersianDatePicker(
-                    context: context,
-                    initialDate: Jalali.now(),
-                    firstDate: Jalali(1402),
-                    lastDate: Jalali(1420),
-                  );
-                  setState(() {
-                    //to set 0 before 1 digit dates:
-                    // .length == 2
-                    // ? pickedDate?.day.toString()
-                    //     : '0${pickedDate?.day.toString()}'
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          RadioButton(
+              title: 'پرداختی',
+              value: 1,
+              groupValue: NewTransactionScreen.groupId,
+              onChanged: (value) {
+                setState(() {
+                  NewTransactionScreen.groupId = value!;
+                });
+              }),
+          RadioButton(
+              title: 'دریافتی',
+              value: 2,
+              groupValue: NewTransactionScreen.groupId,
+              onChanged: (value) {
+                setState(() {
+                  NewTransactionScreen.groupId = value!;
+                });
+              }),
+          Expanded(
+            child: OutlinedButton(
+              onPressed: () async {
+                var pickedDate = await showPersianDatePicker(
+                  context: context,
+                  initialDate: Jalali.now(),
+                  firstDate: Jalali(1402),
+                  lastDate: Jalali(1420),
+                );
+                setState(() {
+                  //to set 0 before 1 digit dates:
+                  // .length == 2
+                  // ? pickedDate?.day.toString()
+                  //     : '0${pickedDate?.day.toString()}'
 
-                    //day
-                    String? day = pickedDate?.day.toString();
+                  //day
+                  String? day = pickedDate?.day.toString();
 
-                    //month
-                    String? month = pickedDate?.month.toString();
+                  //month
+                  String? month = pickedDate?.month.toString();
 
-                    //year
-                    String? year = pickedDate?.year.toString();
+                  //year
+                  String? year = pickedDate?.year.toString();
 
-                    //date
-                    NewTransactionScreen.date = '$year/$month/$day';
-                  });
-                },
-                child: Text(
-                  NewTransactionScreen.date,
-                  style: const TextStyle(color: Colors.black),
-                ),
+                  //date
+                  NewTransactionScreen.date = '$year/$month/$day';
+                });
+              },
+              child: Text(
+                NewTransactionScreen.date,
+                style: const TextStyle(color: Colors.black),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

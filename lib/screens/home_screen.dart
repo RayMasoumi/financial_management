@@ -48,6 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             return GestureDetector(
                               //edit:
                               onTap: () {
+                                NewTransactionScreen.date =
+                                    HomeScreen.moneys[index].date;
                                 NewTransactionScreen.isEditing = true;
                                 //fill fields with data:
                                 //title:
@@ -142,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget fabWidget() {
     return FloatingActionButton(
       onPressed: () {
+        NewTransactionScreen.date = 'تاریخ';
         NewTransactionScreen.isEditing = false;
         NewTransactionScreen.descriptionController.text = '';
         NewTransactionScreen.priceController.text = '';

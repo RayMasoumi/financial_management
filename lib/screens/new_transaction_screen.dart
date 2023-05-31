@@ -56,7 +56,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                         id: Random().nextInt(999999),
                         title: NewTransactionScreen.descriptionController.text,
                         price: NewTransactionScreen.priceController.text,
-                        date: '1401/5/8',
+                        date: NewTransactionScreen.date,
                         isReceived:
                             NewTransactionScreen.groupId == 1 ? false : true);
                     if (NewTransactionScreen.isEditing) {
