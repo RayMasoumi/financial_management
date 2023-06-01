@@ -3,6 +3,7 @@ import 'package:financial_management/main.dart';
 import 'package:financial_management/models/money.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import '../constants.dart';
 import '../utilities/widgets.dart';
 import 'package:financial_management/utilities/extensions.dart';
@@ -14,7 +15,6 @@ class NewTransactionScreen extends StatefulWidget {
   static TextEditingController priceController = TextEditingController();
   static bool isEditing = false;
   static int index = 0;
-  // static String date = 'تاریخ';
   static String date = 'تاریخ';
 
   @override
@@ -60,33 +60,72 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                       ? 'ثبت ویرایش'
                       : 'اضافه کردن',
                   onPressed: () {
-                    Money sample = Money(
-                        id: Random().nextInt(999999),
-                        title: NewTransactionScreen.descriptionController.text,
-                        price: NewTransactionScreen.priceController.text,
-                        date: NewTransactionScreen.date,
-                        isReceived:
-                            NewTransactionScreen.groupId == 1 ? false : true);
-                    if (NewTransactionScreen.isEditing) {
-                      int index = 0;
-                      //casting the id we got into the correct index of each element:
-                      MyApp.getData(); //refreshing the List at first:
-                      for (int i = 0; i < hiveBox.values.length; i++) {
-                        if (hiveBox.values.elementAt(i).id ==
-                            NewTransactionScreen
-                                .index) //so this checks if they have the same id, and if so, they must have the same index too
-                        {
-                          index = i;
-                          Navigator.pop(context);
-                        }
-                      }
-
-                      // HomeScreen.moneys[NewTransactionScreen.index] = sample;
-                      hiveBox.putAt(index, sample);
+                    if (NewTransactionScreen.date == 'تاریخ' ||
+                        NewTransactionScreen.date == 'null/0null/0null') {
+                      setState(() {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: Center(
+                                    child: Text(
+                                      '! ابتدا تاریخ را وارد کنید',
+                                      style: TextStyle(
+                                          fontSize:
+                                              ScreenSize(context).screenWidth *
+                                                  0.040,
+                                          color: Colors.red),
+                                    ),
+                                  ),
+                                ));
+                      });
+                    }
+                    if (NewTransactionScreen.priceController.text == '') {
+                      setState(() {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: Center(
+                                    child: Text(
+                                      '! هزینه ای وارد نشده است',
+                                      style: TextStyle(
+                                          fontSize:
+                                              ScreenSize(context).screenWidth *
+                                                  0.040,
+                                          color: Colors.red),
+                                    ),
+                                  ),
+                                ));
+                      });
                     } else {
-                      // HomeScreen.moneys.add(sample);
-                      hiveBox.add(sample);
-                      Navigator.pop(context);
+                      Money sample = Money(
+                          id: Random().nextInt(999999),
+                          title:
+                              NewTransactionScreen.descriptionController.text,
+                          price: NewTransactionScreen.priceController.text,
+                          date: NewTransactionScreen.date,
+                          isReceived:
+                              NewTransactionScreen.groupId == 1 ? false : true);
+                      if (NewTransactionScreen.isEditing) {
+                        int index = 0;
+                        //casting the id we got into the correct index of each element:
+                        MyApp.getData(); //refreshing the List at first:
+                        for (int i = 0; i < hiveBox.values.length; i++) {
+                          if (hiveBox.values.elementAt(i).id ==
+                              NewTransactionScreen
+                                  .index) //so this checks if they have the same id, and if so, they must have the same index too
+                          {
+                            index = i;
+                            Navigator.pop(context);
+                          }
+                        }
+
+                        // HomeScreen.moneys[NewTransactionScreen.index] = sample;
+                        hiveBox.putAt(index, sample);
+                      } else {
+                        // HomeScreen.moneys.add(sample);
+                        hiveBox.add(sample);
+                        Navigator.pop(context);
+                      }
                     }
                   },
                 ),
