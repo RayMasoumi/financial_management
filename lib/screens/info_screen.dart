@@ -3,7 +3,6 @@ import 'package:financial_management/utilities/chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_management/utilities/extensions.dart';
 import '../utilities/calculate.dart';
-import 'package:text_scroll/text_scroll.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({Key? key}) : super(key: key);
@@ -20,73 +19,76 @@ class _InfoScreenState extends State<InfoScreen> {
         backgroundColor: Colors.white,
         body: SizedBox(
           width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(top: 30.0, right: 20.0, bottom: 30.0),
-                child: Text('مدیریت تراکنش ها به تومان',
-                    style: TextStyle(
-                        fontSize:
-                            ScreenSize(context).screenWidth * kTitleRatio)),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ExpenseBoxWidget(' دریافتی امروز',
-                        '${Calculate.receivedToday().toString()} '),
-                    const SizedBox(
-                      width: 1.0,
-                    ),
-                    ExpenseBoxWidget(' پرداختی امروز',
-                        '${Calculate.paidToday().toString()} '),
-                  ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 30.0, right: 20.0, bottom: 30.0),
+                  child: Text('مدیریت تراکنش ها به تومان',
+                      style: TextStyle(
+                          fontSize:
+                              ScreenSize(context).screenWidth * kTitleRatio)),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ExpenseBoxWidget(' دریافتی این ماه',
-                        '${Calculate.receivedThisMonth().toString()} '),
-                    const SizedBox(
-                      width: 1.0,
-                    ),
-                    ExpenseBoxWidget(' پرداختی این ماه',
-                        '${Calculate.paidThisMonth().toString()} '),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ExpenseBoxWidget(' دریافتی امروز',
+                          '${Calculate.receivedToday().toString()} '),
+                      const SizedBox(
+                        width: 1.0,
+                      ),
+                      ExpenseBoxWidget(' پرداختی امروز',
+                          '${Calculate.paidToday().toString()} '),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ExpenseBoxWidget(' دریافتی امسال',
-                        '${Calculate.receivedThisYear().toString()} '),
-                    const SizedBox(
-                      width: 1.0,
-                    ),
-                    ExpenseBoxWidget(' پرداختی امسال',
-                        '${Calculate.paidThisYear().toString()} '),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ExpenseBoxWidget(' دریافتی این ماه',
+                          '${Calculate.receivedThisMonth().toString()} '),
+                      const SizedBox(
+                        width: 1.0,
+                      ),
+                      ExpenseBoxWidget(' پرداختی این ماه',
+                          '${Calculate.paidThisMonth().toString()} '),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 50.0,
-              ),
-              Calculate.paidThisYear() == 0 && Calculate.receivedThisYear() == 0
-                  ? Container()
-                  : Container(
-                      padding: const EdgeInsets.all(10.0),
-                      height: 200.0,
-                      child: const BarChartWidget(),
-                    )
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ExpenseBoxWidget(' دریافتی امسال',
+                          '${Calculate.receivedThisYear().toString()} '),
+                      const SizedBox(
+                        width: 1.0,
+                      ),
+                      ExpenseBoxWidget(' پرداختی امسال',
+                          '${Calculate.paidThisYear().toString()} '),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 50.0,
+                ),
+                Calculate.paidThisYear() == 0 &&
+                        Calculate.receivedThisYear() == 0
+                    ? Container()
+                    : Container(
+                        padding: const EdgeInsets.all(10.0),
+                        height: 200.0,
+                        child: const BarChartWidget(),
+                      )
+              ],
+            ),
           ),
         ),
       ),
