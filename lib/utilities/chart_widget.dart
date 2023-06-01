@@ -53,10 +53,10 @@ class BarChartWidget extends StatelessWidget {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = 'پرداختی سالیانه';
+        text = 'دریافتی سالیانه';
         break;
       case 1:
-        text = 'دریافتی سالیانه';
+        text = 'پرداختی سالیانه';
         break;
       default:
         text = '';
@@ -107,7 +107,7 @@ class BarChartWidget extends StatelessWidget {
           x: 0,
           barRods: [
             BarChartRodData(
-              toY: Calculate.paidThisYear(),
+              toY: Calculate.receivedThisYear(),
               gradient: _barsGradient,
             )
           ],
@@ -117,7 +117,7 @@ class BarChartWidget extends StatelessWidget {
           x: 1,
           barRods: [
             BarChartRodData(
-              toY: Calculate.receivedThisYear(),
+              toY: Calculate.paidThisYear(),
               gradient: _barsGradient,
             )
           ],

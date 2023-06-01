@@ -69,6 +69,9 @@ class ExpenseTileWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
+                  // HomeScreen.moneys[index].date == 'تاریخ'
+                  //     ? 'تاریخ وارد نشده!'
+                  //     :
                   HomeScreen.moneys[index].date,
                   style: TextStyle(
                       fontSize: ScreenSize(context).screenWidth * 0.035),
@@ -190,10 +193,10 @@ class _DateAndTypeState extends State<DateAndType> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: RadioButton(
                 title: 'پرداختی',
                 value: 1,
@@ -205,7 +208,7 @@ class _DateAndTypeState extends State<DateAndType> {
                 }),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: RadioButton(
                 title: 'دریافتی',
                 value: 2,
@@ -218,7 +221,7 @@ class _DateAndTypeState extends State<DateAndType> {
           ),
           const Spacer(),
           Expanded(
-            flex: 5,
+            flex: 4,
             child: OutlinedButton(
               onPressed: () async {
                 var pickedDate = await showPersianDatePicker(

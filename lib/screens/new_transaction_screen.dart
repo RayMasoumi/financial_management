@@ -14,6 +14,7 @@ class NewTransactionScreen extends StatefulWidget {
   static TextEditingController priceController = TextEditingController();
   static bool isEditing = false;
   static int index = 0;
+  // static String date = 'تاریخ';
   static String date = 'تاریخ';
 
   @override
@@ -53,7 +54,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen> {
                   keyBoardType: TextInputType.number,
                   controller: NewTransactionScreen.priceController,
                 ),
-                DateAndType(),
+                const DateAndType(),
                 StretchedButton(
                   text: NewTransactionScreen.isEditing
                       ? 'ثبت ویرایش'

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'models/money.dart';
 
+//*Todo: responsive -- tarikh - nemudar
+
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(MoneyAdapter());
@@ -29,8 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'koodak',
         textTheme: Theme.of(context).textTheme.apply(
-              fontSizeFactor: 1.2,
-              fontSizeDelta: 5.0,
+              // fontSizeFactor: 1.2,
+              // fontSizeDelta: 5.0,
               fontFamily: 'koodak',
             ),
       ),

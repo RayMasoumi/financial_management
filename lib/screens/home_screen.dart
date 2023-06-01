@@ -10,8 +10,9 @@ import 'package:financial_management/utilities/extensions.dart';
 
 class HomeScreen extends StatefulWidget {
   static List<Money> moneys = [];
+  bool small = false;
 
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -30,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize(context).screenWidth < 411 ? kChange = 1.2 : kChange = 1.35;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -83,12 +86,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: Text(
-                                        'آیا از حذف این آیتم مطمئن هستید؟',
-                                        style: TextStyle(
-                                            fontSize: ScreenSize(context)
-                                                    .screenWidth *
-                                                0.030),
+                                      title: Center(
+                                        child: Text(
+                                          'آیا از حذف این آیتم مطمئن هستید؟',
+                                          style: TextStyle(
+                                              fontSize: ScreenSize(context)
+                                                      .screenWidth *
+                                                  0.030),
+                                        ),
                                       ),
                                       actionsAlignment:
                                           MainAxisAlignment.spaceBetween,

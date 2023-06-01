@@ -12,7 +12,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
-  Widget body = const HomeScreen();
+  Widget body = HomeScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
         gapLocation: GapLocation.center,
         onTap: (index) {
           if (index == 0) {
-            body = const HomeScreen();
+            body = HomeScreen();
           } else {
             body = const InfoScreen();
           }
