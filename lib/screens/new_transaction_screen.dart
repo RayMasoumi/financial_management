@@ -3,7 +3,6 @@ import 'package:financial_management/main.dart';
 import 'package:financial_management/models/money.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import '../constants.dart';
 import '../utilities/widgets.dart';
 import 'package:financial_management/utilities/extensions.dart';
